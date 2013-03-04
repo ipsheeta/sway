@@ -31,22 +31,19 @@
 <body class="deck-container">
 
 <!-- Begin slides. Just make elements with a class of slide. -->
-
-<section class="slide">
-	<h1>Slide
-        {% for slide in slide_list %}
-            {{ slide.title }}
-        {% endfor %}
-    </h1>
-</section>
-
-<section class="slide">
-	<h1>Content</h1>
-</section>
-
-<section class="slide">
-	<h1>Here</h1>
-</section>
+{% for slide in slide_list %}
+    <section class="slide">
+            <h2>{{ slide.title }}</h2>
+                {% if slide.graph_snippet %}
+                <div class="graph{{ slide.id }}">
+                    {% autoescape off %}
+                    {{ slide.graph_snippet }}
+                    {% endautoescape %}
+                </div>
+                {% endif %}
+            <p>{{ slide.point }}</p>
+    </section>
+{% endfor %}
 
 <!-- End slides. -->
 
