@@ -17,3 +17,13 @@ urlpatterns = patterns('',
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 )
+from django.conf import settings
+if settings.DEBUG:
+    urlpatterns += patterns('',
+                            url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+                                'document_root': settings.MEDIA_ROOT,
+                                }),
+                            url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+                                'document_root': settings.STATIC_ROOT,
+                                }),
+                            )

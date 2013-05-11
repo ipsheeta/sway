@@ -9,6 +9,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+INTERNAL_IPS = ("127.0.0.1",)
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -57,7 +58,7 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory staticfiles files should be collected to.
 # Don't put anything in this directory yourself; store your staticfiles files
@@ -95,6 +96,17 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
+    'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
+)
+
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -103,6 +115,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'launchdemo.urls'
@@ -132,7 +145,13 @@ INSTALLED_APPS = (
     'rest_framework',
     # My Apps
     'slides',
+    'debug_toolbar',
 )
+
+
+
+DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
