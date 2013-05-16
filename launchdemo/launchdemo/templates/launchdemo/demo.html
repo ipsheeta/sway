@@ -27,6 +27,21 @@
 	
 	<!-- Required Modernizr file -->
 	<script src="{{ STATIC_URL }}js/vendor/deck.js/modernizr.custom.js"></script>
+    <!--<script src="{{ STATIC_URL }}js/hashchange.js"></script>-->
+
+    <script type="text/javascript">
+        $(function(){
+
+            $(document).bind('deck.change', function() {
+                $('audio').each(function(){this.pause()});
+                window.setTimeout(function (){
+                    var a = $('.deck-current audio');
+                    a[0].play();
+                }, 2000);
+            });
+        });
+    </script>
+
 </head>
 <body class="deck-container">
 
@@ -41,6 +56,20 @@
                     {% endautoescape %}
                 </div>
                 {% endif %}
+
+                {% if slide.image %}
+                <div class="img">
+                    <img src="{{ slide.image.url }}"> </img>
+                </div>
+                {% endif %}
+
+                {% if slide.mp3 %}
+                <audio controls autoplay height="100" width="100" >
+                    <source src="{{slide.mp3.url}}" type="audio/mpeg" >
+                    <embed src="{{slide.mp3.url}}" autostart="true" loop="true" hidden="true" />
+                </audio>
+                {% endif %}
+
             <p>{{ slide.point }}</p>
     </section>
 {% endfor %}
